@@ -8,6 +8,5 @@ import com.rafaelmelchioretto.gerenciaTarefas.domain.Pessoa;
 @Repository
 public interface PessoaRepository extends MongoRepository<Pessoa,String>{
 
-	//void save(String string);
 	
 }
