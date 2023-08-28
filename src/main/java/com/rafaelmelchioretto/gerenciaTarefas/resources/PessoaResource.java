@@ -1,6 +1,7 @@
 package com.rafaelmelchioretto.gerenciaTarefas.resources;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.rafaelmelchioretto.gerenciaTarefas.domain.Pessoa;
+import com.rafaelmelchioretto.gerenciaTarefas.dto.PessoaDTO;
 import com.rafaelmelchioretto.gerenciaTarefas.services.PessoaService;
 
 @RestController
@@ -19,10 +21,11 @@ public class PessoaResource {
 	private PessoaService service;
 	
 	@GetMapping
-	public ResponseEntity<List<Pessoa>> findAll(){
+	public ResponseEntity<List<PessoaDTO>> findAll(){
 	
 		List<Pessoa> list = service.findaAll();
-		return ResponseEntity.ok().body(list);
+		List<PessoaDTO> listDto = list.stream().map(x -> new PessoaDTO(x)).collect(Collectors.toList());
+		return ResponseEntity.ok().body(listDto);
 		
 	}
 }
